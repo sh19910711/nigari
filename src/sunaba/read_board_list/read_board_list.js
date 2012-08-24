@@ -13,6 +13,19 @@ function get_board_info( line ) {
 	return { url:ret[1], title:ret[2] };
 }
 
+// board_listからHTMLコードを生成する
+function get_html_from_board_list( board_list ) {
+	var lines = [];
+	lines.push('<ul>');
+	for ( var i = 0; i < board_list.length; ++ i ) {
+		var url = board_list[i].url;
+		var title = board_list[i].title;
+		lines.push( '<li><a href="'+url+'">'+title+'</a></li>' );
+	}
+	lines.push('</ul>');
+	return lines.join('');
+}
+
 // 板一覧を取得する
 function get_board_list( callback ) {
 	$.ajax({

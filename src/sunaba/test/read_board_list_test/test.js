@@ -1,12 +1,12 @@
 
-function check_board_list( board_list ) {
-	for ( var i = 0; i < board_list.length; ++ i ) {
-		if ( ! check_board_url( board_list[i].url ) ) return false;
+test('get board test', function() {
+	function check_board_list( board_list ) {
+		for ( var i = 0; i < board_list.length; ++ i ) {
+			if ( ! check_board_url( board_list[i].url ) ) return false;
+		}
+		return true;
 	}
-	return true;
-}
 
-test("get board test", function() {
 	stop();
 	get_board_list( function( ret ) {
 		ok( ret.status, 'status = ok' );
@@ -15,7 +15,7 @@ test("get board test", function() {
 	} );
 });
 
-test("check board test", function() {
+test('check board test', function() {
 	console.log('test2');
 	ok( ! check_board_url('test'), '適当な文字列' );
 	ok( check_board_url('http://hayabusa.2ch.net/news4vip/') );
@@ -25,4 +25,14 @@ test("check board test", function() {
 	ok( check_board_url('http://engawa.2ch.net/msports/') );
 	ok( ! check_board_url('http://menu.2ch.net/bbsmenu.html'), '似ているURL' );
 	ok( ! check_board_url('http://info.2ch.net/mag.html'), '似ているURL' );
+});
+
+test('get html from board list', function() {
+	stop();
+	get_board_list( function( ret ) {
+		var board_list = ret.board_list;
+		var ret1 = get_html_from_board_list( board_list );
+		equal( $('li', ret1).size(), board_list.length );
+		start();
+	});
 });
