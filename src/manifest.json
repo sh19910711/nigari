@@ -2,5 +2,13 @@
 	"name": "Nigari",
 	"version": "0.0.1",
 	"manifest_version": 2,
-	"description": "2ch専用ブラウザ"
+	"description": "2ch専用ブラウザ",
+	"app": {
+		"launch": {
+			"local_path": "index.html"
+		}
+	},
+	"permissions": [
+		"http://*.2ch.net/"
+	]
 }
