@@ -1,8 +1,10 @@
 
+// 
+var board_url_reg = /^http:\/\/.*\.2ch\.net\/([^\/\.]+)\/?$/;
+
 // 2chの板URLかどうかチェックする
 function check_board_url( url ) {
-	var reg = /^http:\/\/.*\.2ch\.net\/[^\/]+\//;
-	return reg.test(url);
+	return board_url_reg.test(url);
 }
 
 // bbsmenu.htmlのアンカータグからURLとタイトルを取り出す
@@ -10,7 +12,7 @@ function get_board_info( line ) {
 	var reg = /<A HREF=(.*)>(.*)<\/A>/;
 	if ( ! reg.test( line ) ) return false;
 	var ret = line.match( reg );
-	return { url:ret[1], title:ret[2] };
+	return { url:ret[1], title:ret[2], id:get_board_id_from_url(ret[1]) };
 }
 
 // board_listからHTMLコードを生成する
@@ -24,6 +26,21 @@ function get_html_from_board_list( board_list ) {
 	}
 	lines.push('</ul>');
 	return lines.join('');
+}
+
+// URLから板IDを取得する
+function get_board_id_from_url( url ) {
+	if ( ! board_url_reg.test( url ) ) return false;
+	return url.match(board_url_reg)[1];
+}
+
+// 与えられた板一覧に指定した板IDが存在するかどうか調べる
+function exist_board_id( board_list, id ) {
+	var n = board_list.length;
+	for ( var i = 0; i < n; ++ i ) {
+		if ( board_list[i].id == id ) return true;
+	}
+	return false;
 }
 
 // 板一覧を取得する

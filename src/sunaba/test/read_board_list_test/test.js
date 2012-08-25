@@ -3,6 +3,7 @@ test('get board test', function() {
 	function check_board_list( board_list ) {
 		for ( var i = 0; i < board_list.length; ++ i ) {
 			if ( ! check_board_url( board_list[i].url ) ) return false;
+			if ( board_list[i].id == '' || ! board_list[i].id ) return false;
 		}
 		return true;
 	}
@@ -36,3 +37,26 @@ test('get html from board list', function() {
 		start();
 	});
 });
+
+test('URLからの板ID取得', function() {
+	equal( get_board_id_from_url('http://hayabusa.2ch.net/news4vip/'), 'news4vip' );
+	equal( get_board_id_from_url('http://anago.2ch.net/owabiplus/'), 'owabiplus' );
+	equal( get_board_id_from_url('http://toro.2ch.net/poetics'), 'poetics' );
+	equal( get_board_id_from_url('http://engawa.2ch.net/nohodame'), 'nohodame'  );
+	equal( false, get_board_id_from_url('http://menu.2ch.net/bbsmenu.html'), '似ているURL' );
+	equal( false, get_board_id_from_url('http://info.2ch.net/mag.html'), '似ているURL' );
+});
+
+test('指定した板IDが一覧に存在するかどうか調べる', function() {
+	stop();
+	get_board_list(function(ret) {
+		start();
+		var board_list = ret.board_list;
+		ok( exist_board_id( board_list, 'news4vip' ) );
+		ok( exist_board_id( board_list, 'owabiplus' ) );
+		ok( ! exist_board_id( board_list, 'あいうえお' ), '不正な文字列' );
+		ok( ! exist_board_id( board_list, 'test.html' ), '不正な文字列' );
+		ok( ! exist_board_id( board_list, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' ), '不正な文字列' );
+	});
+});
+
