@@ -31,7 +31,7 @@ function get_response_info( line ) {
 // レス一覧を取得する
 function get_response_list( board_id, thread_id, callback ) {
 	var req = new XMLHttpRequest();
-	req.open( 'GET', get_thread_url( board_id, thread_id ) );
+	req.open( 'GET', get_thread_url( board_id, thread_id )+'?'+(new Date()).getTime() );
 	req.overrideMimeType('text/plain; charset=x-user-defined');
 	req.send(null);
 	req.onreadystatechange = function() {
@@ -53,7 +53,8 @@ function get_response_list( board_id, thread_id, callback ) {
 			lines[i] = ConvertEncodingFromSJIS( lines[i] );
 		}
 		for ( var i = 0; i < n; ++ i ) {
-			items.push( get_response_info( lines[i] ) );
+			var ret = get_response_info( lines[i] );
+			if ( ret ) items.push( ret );
 		}
 		callback( {status:true, response_list:items} );
 	}

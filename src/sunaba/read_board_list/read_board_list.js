@@ -4,6 +4,7 @@ var board_url_reg = /^http:\/\/.*\.2ch\.net\/([^\/\.]+)\/?$/;
 
 // 2chの板URLかどうかチェックする
 function check_board_url( url ) {
+	if ( url == 'http://info.2ch.net/guide/' ) return false;
 	return board_url_reg.test(url);
 }
 
