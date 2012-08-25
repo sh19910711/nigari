@@ -1,4 +1,16 @@
 
+var board_list = [];
+var board_list_mapping = [];
+var wait_flag = true; // 板一覧を読み込むまで実行を待たせる
+
+(function() {
+	get_board_list( function( ret ) {
+		board_list = ret.board_list;
+		mapping_id_to_index( board_list );
+		wait_flag = false;
+	} );
+})();
+
 asyncTest( 'スレッド一覧を取得してみる', function() {
 	// 少なくとも空文字列では無い
 	function check_thread_list( thread_list ) {
