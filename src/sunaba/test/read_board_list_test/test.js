@@ -4,6 +4,7 @@ test('get board test', function() {
 		for ( var i = 0; i < board_list.length; ++ i ) {
 			if ( ! check_board_url( board_list[i].url ) ) return false;
 			if ( board_list[i].id == '' || ! board_list[i].id ) return false;
+			if ( board_list[i].category == '' ) return false;
 		}
 		return true;
 	}
@@ -26,6 +27,12 @@ test('check board test', function() {
 	ok( check_board_url('http://engawa.2ch.net/msports/') );
 	ok( ! check_board_url('http://menu.2ch.net/bbsmenu.html'), '似ているURL' );
 	ok( ! check_board_url('http://info.2ch.net/mag.html'), '似ているURL' );
+});
+
+test('check category html', function() {
+	ok( check_category_html( '<BR><BR><B>特別企画</B><BR> ' ) );
+	ok( ! check_category_html( '<BR><BR>--> ' ) );
+	equal( get_category_name_from_html( '<BR><BR><B>特別企画</B><BR>') , '特別企画' );
 });
 
 test('get html from board list', function() {

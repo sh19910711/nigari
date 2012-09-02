@@ -13,20 +13,68 @@
 </head>
 <body>
 	<div id="top_bar">
-		<h1 id="title">Nigari - 2ch browser - ver. 0.0.1</h1>
+		<h1 id="title">
+			<img src="./img/icon128.png" width="28" height="28" align="top"
+				style="margin-top: 3px"> Nigari - 2ch Browser - Ver. <span
+				id="app_version"></span>
+		</h1>
 	</div>
 	<div id="contents" class="clearfix">
 		<div class="small">
-			<div id="board_list">none</div>
+			<div id="board_list"></div>
 		</div>
 		<div class="wide">
-			<div id="thread_head">Board: <span id="current_board"></span></div>
-			<div id="thread_list">none</div>
+			<div id="thread_head">
+				Board: <span id="current_board"></span>
+			</div>
+			<div id="thread_list"></div>
 		</div>
 		<div class="wide second">
-			<div id="response_head">Thread: <span id="current_thread"></span></div>
-			<div id="response_list">none</div>
+			<div id="response_head">
+				Thread: <span id="current_thread"></span>
+			</div>
+			<div id="response_list">
+				<ul class="responses" style="top: 24px;">
+					<li><ul class="response">
+							<li>1: <span class="name"><b>Nigari について</b></span> []
+							</li>
+							<li class="info">2012/05/10(木) 17:12:59.31 ID:NIGARI</li>
+							<li class="text">
+								<div>2ch専用ブラウザ "Nigari"は絶賛開発中です。</div> <pre class="ascii_art">
+　　　　　　 　　　／⌒ヽ
+　　　⊂二二二（　＾ω＾）二⊃
+　　　　　　　　|　　　 / 　　　　　　ﾌﾞｰﾝ
+　　　　 　　　 （　ヽノ
+　　　　　　　　 ﾉ>ノ
+　　　　 三　　レﾚ
+</pre>
+							</li>
+						</ul>
+						<ul class="responses" style="top: 24px;">
+							<li><ul class="response">
+									<li>2: <span class="name"><b>Nigari について</b></span> []
+									</li>
+									<li class="info">2012/05/10(木) 17:12:59.31 ID:NIGARI</li>
+									<li class="text">
+										<h2>できること</h2>
+										<ul>
+											<li>スレッドの閲覧</li>
+										</ul>
+										<h2>できないこと（そのうち対応したい）</h2>
+										<ul>
+											<li>スレッドへの書き込み</li>
+											<li>スレッドの検索</li>
+											<li>お気に入りのスレッド記録</li>
+										</ul>
+									</li>
+								</ul></li>
+						</ul>
+			</div>
 		</div>
+	</div>
+	<div id="controller">
+		<div id="ajust_board_list"></div>
+		<div id="ajust_thread_list"></div>
 	</div>
 </body>
 </html>

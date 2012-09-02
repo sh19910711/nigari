@@ -1,11 +1,22 @@
 
 // 
 var board_url_reg = /^http:\/\/.*\.2ch\.net\/([^\/\.]+)\/?$/;
+var category_html_reg = /^<BR><BR><B>([^<]+)<\/B><BR>/;
 
 // 2chの板URLかどうかチェックする
 function check_board_url( url ) {
 	if ( url == 'http://info.2ch.net/guide/' ) return false;
 	return board_url_reg.test(url);
+}
+
+// カテゴリ名かどうかチェックする
+function check_category_html( s ) {
+	return category_html_reg.test(s);
+} 
+
+// カテゴリ名を取得する
+function get_category_name_from_html( s ) {
+	return s.match( category_html_reg )[1];
 }
 
 // bbsmenu.htmlのアンカータグからURLとタイトルを取り出す
@@ -60,10 +71,17 @@ function get_board_list( callback ) {
 		var reg1 = /<font size=2>([\n\r]|.)*<\/font>/;
 		text = text.match(reg1)[0];
 		var lines = text.split(/\r\n|\r|\n/);
+		var category = '';
 		
 		var board_list = [];
 		for ( var i = 0; i < lines.length; ++ i ) {
+			if ( check_category_html( lines[i] ) ) {
+				category = get_category_name_from_html( lines[i] );
+				continue;
+			}
+			if ( category == '' ) continue;
 			var ret = get_board_info( lines[i] );
+			ret.category = category;
 			if ( ! ret ) continue;
 			if ( ! check_board_url( ret.url ) ) continue;
 			board_list.push( ret );

@@ -1,6 +1,6 @@
 {
-	"name": "Nigari",
-	"version": "0.0.1",
+	"name": "Nigari 2ch Browser",
+	"version": "0.0.2",
 	"manifest_version": 2,
 	"description": "2ch専用ブラウザ",
 	"app": {
@@ -10,5 +10,10 @@
 	},
 	"permissions": [
 		"http://*.2ch.net/"
-	]
+	],
+	"icons": {
+		"16": "img/icon128.png",
+		"48": "img/icon128.png",
+		"128": "img/icon128.png"
+	}
 }
