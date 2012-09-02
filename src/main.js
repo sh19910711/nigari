@@ -230,7 +230,6 @@ function set_board_list( board_list ) {
 		if ( obj.hasClass('closed') ) {
 			// 開く
 			obj.removeClass('closed');
-			console.log( ( n * 32 ) + 'px' );
 			obj
 			.queue([])
 			.animate({
@@ -270,8 +269,6 @@ function set_thread_list( thread_list ) {
 	lines.push('<ul>');
 	for ( var i = 0; i < n; ++ i ) {
 		var attr = '';
-		// TODO
-		console.log(thread_list[i].id);
 		if ( thread_list[i].id != false ) attr += ' data-thread-index="'+i+'"';
 		lines.push( '<li'+attr+'>'+thread_list[i].title+'</li>' );
 	}
@@ -366,7 +363,6 @@ function click_at_thread_list() {
 	$('#response_list').empty();
 	add_loading($('#response_list'));
 	get_response_list( current_board.id, current_thread.id, function( ret ) {
-		console.log( '@get_response_list result: ', ret );
 		response_list = ret.response_list;
 		set_response_list( ret.response_list );
 	} );
